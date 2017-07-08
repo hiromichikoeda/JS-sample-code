@@ -10,24 +10,14 @@ PROJECT.COMMON.LINK_SCROLL = {
 	init: function () {
 		this.setParameters();
 		this.bindEvent();
-		// this.changeGoToTopTriggerDisplayState();
-
 	},
 	setParameters: function () {
-		// 注意：document.querySelectorとdocument.querySelectorAllはかなり遅いです。
-		// もし、パフォーマンスが必要ならdocument.getElementByIdやdocument.getElementsByClassName、document.getElementsByTagNameを使ってください。
 		this.windowElement = window;
-		// this.$body = $('html,body');
 		this.bodyElement = document.body;
 		this.htmlElement = document.documentElement;
 		this.GoToTopTrigger = document.getElementById('jsiGoToTop');
-		// this.goToTopTrigger = document.getElementsByClassName('jsc-goToTop');
 		this.aElement = document.querySelectorAll('.jscLinkScroll');
-		// this.aElement = document.getElementsByClassName('jscLinkScroll');
-		// this.href = document.querySelectorAll('a')[0].getAttribute('href');
 		console.log(this.aElement);
-
-
 	},
 	bindEvent: function () {
 		var _self = this;
@@ -58,19 +48,11 @@ PROJECT.COMMON.LINK_SCROLL = {
 			var id = targetText.replace(/#/, "");
 			console.log(id);
 			var targetLinkElement = document.getElementById(id);
-			// element.scrollTop とかだと親からの相対値になっちゃいます
-			// getBoundingClientRect() を使えば絶対座標を取得できます
-			// http://phiary.me/javascript-get-bounding-client-rect-absolute-position/
-			// https://syncer.jp/javascript-reverse-reference/get-offsettop-offsetleft
 			var rect = targetLinkElement.getBoundingClientRect();
-
-			// 座標を計算する
-			var positionX = rect.left + window.pageXOffset;	// 要素のX座標
-			var positionY = rect.top + window.pageYOffset;	// 要素のY座標
+			var positionX = rect.left + window.pageXOffset;
+			var positionY = rect.top + window.pageYOffset;
 			console.log(positionX);
 			console.log(positionY);
-			// this.smoothScroll(positionX, positionY);
-			// id = "#"+id;
 			this.smoothScroll(positionY);
 		}
 	},
@@ -81,7 +63,6 @@ PROJECT.COMMON.LINK_SCROLL = {
 			scrollTop: positionY,
 			duration: this.SCROLL_SPEED,
 			easing: 'easeInOutExpo'
-			// easing: 'easeOutCirc'
 		});
 	},
 	changeGoToTopTriggerDisplayState: function () {
@@ -90,46 +71,15 @@ PROJECT.COMMON.LINK_SCROLL = {
 		console.log('nowScrollTop：' + nowScrollTop);
 		console.log('bodyHeight：' + this.bodyElement.scrollHeight);
 		console.log('nowScrollBottom：' + nowScrollBottom);
-		// FADEIN_SCROLL_TOP(500)よりnowScrollTopが小さかったらfadeOutもしくはdisplay:none
-		// FADEIN_SCROLL_TOP(500)よりnowScrollTopが大きかったらfadeIn
-		// bodyHeight - FADEIN_SCROLL_BOTTOM(5416-500)よりnowScrollTopが大きかったらfadeIn
-		// bodyHeight - FADEIN_SCROLL_BOTTOM(5416-500)よりnowScrollTopが大きかったらfadeOut
-
-		// if (nowScrollTop < this.FADEIN_SCROLL_TOP) {
-		// 	console.log("aaa");
-		// 	this.fadeIn();
-		// } else if (nowScrollTop > this.FADEIN_SCROLL_TOP) {
-		// 	if (nowScrollBottom < this.FADEIN_SCROLL_BOTTOM) {
-		// 		console.log('ddd');
-		// 		this.fadeOut();
-		// 		return;
-		// 	}
-		// 	console.log("bbb");
-		// 	this.fadeIn()
-		// }
 		if (nowScrollTop < this.FADEIN_SCROLL_TOP) {
 			console.log("aaa");
-			// this.fadeOut(this.GoToTopTrigger,500);
 		}else{
 			console.log("bbb");
 			this.fadeIn(this.GoToTopTrigger,500)
 		}
 	},
 	fadeIn: function (element, time, callback) {
-		// var _self = this;
-		// var begin = new Date() - 0;
-		// var myTime = 600;
-		// var id = setInterval(function () {
-		// 	var current = new Date() - begin;
-		// 	if (current > myTime) {
-		// 		clearInterval(id);
-		// 		current = myTime;
-		// 	}
-		// 	obj.opacity = current / myTime;
-		// }, 10);
-
 		console.log('fadeIn');
-
 		var fadeTime = (time) ? time : 400,
 			keyFrame = 30,
 			stepTime = fadeTime / keyFrame,
@@ -182,18 +132,6 @@ PROJECT.COMMON.LINK_SCROLL = {
 
 	},
 	fadeOut: function (element, time, callback) {
-		// var _self = this;
-		// var begin = new Date() - 0;
-		// var myTime = 600;
-		// var id = setInterval(function () {
-		// 	var current = new Date() - begin;
-		// 	if (current > myTime) {
-		// 		clearInterval(id);
-		// 		current = myTime;
-		// 		obj.style.display = "none";
-		// 	}
-		// 	obj.style.opacity = 1 - (current / myTime);
-		// }, 10);
 		console.log('fadeOut');
 		var fadeTime = (time) ? time : 400,
 			keyFrame = 30,
@@ -246,8 +184,6 @@ PROJECT.COMMON.LINK_SCROLL = {
 	}
 }
 
-//$(document).readyと同じ
 document.addEventListener('DOMContentLoaded', function () {
 	PROJECT.COMMON.LINK_SCROLL.init();
 });
-
