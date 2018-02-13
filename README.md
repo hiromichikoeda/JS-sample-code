@@ -5,5 +5,5 @@ jqueryを使用せずに処理を記述するサンプル
 http://www.nxworld.net/tips/javascript-without-jquery-of-reference-documents-and-entry.html
 
 
-##getElementとquerySelectorの違い　参考
+##「getElement」と「querySelector」の違い　参考
 http://koltatt.net/programing/javascript_selector/
